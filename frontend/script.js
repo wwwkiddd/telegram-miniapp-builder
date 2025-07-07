@@ -1,13 +1,14 @@
-document.getElementById('bot-form').addEventListener('submit', async (e) => {
+document.getElementById("bot-form").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const botToken = document.getElementById('bot_token').value;
-  const adminId = document.getElementById('admin_id').value;
 
-  const status = document.getElementById('status');
-  status.textContent = 'Создание...';
+  const botToken = document.getElementById("bot_token").value;
+  const adminId = document.getElementById("admin_id").value;
+  const result = document.getElementById("result");
+
+  result.textContent = "Создание бота...";
 
   try {
-    const response = await fetch("http://localhost:8080/create_bot/", {
+    const response = await fetch("http://127.0.0.1:8080/create_bot/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -16,14 +17,20 @@ document.getElementById('bot-form').addEventListener('submit', async (e) => {
       })
     });
 
-    const result = await response.json();
+    const data = await response.json();
 
     if (response.ok) {
-      status.textContent = `✅ Бот успешно создан! ID: ${result.message}`;
+      result.textContent = `✅ Бот создан! Вот ссылка: https://t.me/${getUsernameFromToken(botToken)}`;
     } else {
-      status.textContent = `❌ Ошибка: ${result.detail}`;
+      result.textContent = `❌ Ошибка: ${data.detail}`;
     }
   } catch (err) {
-    status.textContent = `❌ Ошибка соединения с сервером`;
+    result.textContent = "❌ Не удалось подключиться к серверу.";
   }
 });
+
+// Быстрое извлечение username (не точное, временное)
+function getUsernameFromToken(token) {
+  const parts = token.split(":");
+  return "your_bot"; // Можно позже заменить на запрос к Telegram API
+}
