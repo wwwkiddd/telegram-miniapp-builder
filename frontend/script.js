@@ -8,7 +8,7 @@ document.getElementById("bot-form").addEventListener("submit", async (e) => {
   result.textContent = "Создание бота...";
 
   try {
-    const response = await fetch("http://45.144.221.204:8080/create_bot/", {
+    const response = await fetch("http://89.169.47.141:8080/create_bot/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
