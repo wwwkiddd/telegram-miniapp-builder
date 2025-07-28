@@ -8,13 +8,13 @@ document.getElementById("bot-form").addEventListener("submit", async (e) => {
   result.textContent = "Создание бота...";
 
   try {
-    const response = await fetch("http://89.169.47.141:8080/create_bot/", {
+    const response = await fetch("https://dibutcosmo.ru/create_bot/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         bot_token: botToken,
-        admin_id: parseInt(adminId)
-      })
+        admin_id: parseInt(adminId),
+      }),
     });
 
     const data = await response.json();
@@ -29,8 +29,7 @@ document.getElementById("bot-form").addEventListener("submit", async (e) => {
   }
 });
 
-// Быстрое извлечение username (не точное, временное)
 function getUsernameFromToken(token) {
   const parts = token.split(":");
-  return "your_bot"; // Можно позже заменить на запрос к Telegram API
+  return "your_bot"; // можно заменить на реальный username через Telegram API
 }
