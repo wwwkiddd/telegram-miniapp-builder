@@ -13,8 +13,9 @@ document.getElementById("bot-form").addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         bot_token: botToken,
-        admin_id: parseInt(adminId),
-      }),
+        admin_id: parseInt(adminId)
+        // Если user_id не используется — не отправляй
+      })
     });
 
     const data = await response.json();
@@ -26,10 +27,11 @@ document.getElementById("bot-form").addEventListener("submit", async (e) => {
     }
   } catch (err) {
     result.textContent = "❌ Не удалось подключиться к серверу.";
+    console.error(err);  // покажет ошибку в консоли
   }
 });
 
+// Временно возвращает заглушку
 function getUsernameFromToken(token) {
-  const parts = token.split(":");
-  return "your_bot"; // можно заменить на реальный username через Telegram API
+  return "your_bot"; // или запрос к Telegram API
 }
