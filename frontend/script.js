@@ -13,25 +13,18 @@ document.getElementById("bot-form").addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         bot_token: botToken,
-        admin_id: parseInt(adminId)
-        // Если user_id не используется — не отправляй
+        admin_id: parseInt(adminId),
       })
     });
 
     const data = await response.json();
 
     if (response.ok) {
-      result.textContent = `✅ Бот создан! Вот ссылка: https://t.me/${getUsernameFromToken(botToken)}`;
+      result.textContent = `✅ Бот создан! Вот ссылка: https://t.me/${data.username}`;
     } else {
       result.textContent = `❌ Ошибка: ${data.detail}`;
     }
   } catch (err) {
     result.textContent = "❌ Не удалось подключиться к серверу.";
-    console.error(err);  // покажет ошибку в консоли
   }
 });
-
-// Временно возвращает заглушку
-function getUsernameFromToken(token) {
-  return "your_bot"; // или запрос к Telegram API
-}
